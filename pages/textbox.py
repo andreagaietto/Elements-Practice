@@ -9,6 +9,8 @@ class TextBox:
     SUBMIT = (By.ID, 'submit')
     NAME_RETURN = (By.ID, 'name')
     EMAIL_RETURN = (By.ID, 'email')
+    CURRENT_ADDRESS_FIELD = (By.CSS_SELECTOR, '.form-control#currentAddress')
+    CURRENT_ADDRESS_RETURN = (By.CSS_SELECTOR, 'p#currentAddress')
 
     def __init__(self, browser):
         self.browser = browser
@@ -35,3 +37,11 @@ class TextBox:
     def return_email(self):
         email_return = self.browser.find_element(*self.EMAIL_RETURN)
         return email_return.text
+
+    def enter_current_address(self, address):
+        current_address_input = self.browser.find_element(*self.CURRENT_ADDRESS_FIELD)
+        current_address_input.send_keys(address)
+
+    def return_current_address(self):
+        current_address_return = self.browser.find_element(*self.CURRENT_ADDRESS_RETURN)
+        return current_address_return.text

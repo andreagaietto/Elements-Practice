@@ -42,7 +42,7 @@ def test_valid_email_only(browser):
     page.click_submit()
     assert page.return_email() == 'Email:john@example.com'
 
-#verify that if only a incorrect email is entered, error is displayed and the email is not accepted
+#verify that if only an incorrect email is entered, error is displayed and the email is not accepted
 def test_invalid_email_only(browser):
     page = TextBox(browser)
     page.load()
@@ -50,3 +50,11 @@ def test_invalid_email_only(browser):
     page.click_submit()
     assert browser.find_element_by_class_name('field-error').is_displayed()
     assert not len(browser.find_elements_by_id('email'))
+
+
+def test_valid_current_address(browser):
+    page = TextBox(browser)
+    page.load()
+    page.enter_current_address("10280 Test Road Test City, 27513")
+    page.click_submit()
+    assert page.return_current_address() == 'Current Address :10280 Test Road Test City, 27513'
