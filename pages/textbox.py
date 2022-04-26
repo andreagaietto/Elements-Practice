@@ -11,6 +11,9 @@ class TextBox:
     EMAIL_RETURN = (By.ID, 'email')
     CURRENT_ADDRESS_FIELD = (By.CSS_SELECTOR, '.form-control#currentAddress')
     CURRENT_ADDRESS_RETURN = (By.CSS_SELECTOR, 'p#currentAddress')
+    PERMANENT_ADDRESS_FIELD = (By.CSS_SELECTOR, '.form-control#permanentAddress')
+    PERMANENT_ADDRESS_RETURN = (By.CSS_SELECTOR, 'p#permanentAddress')
+
 
     def __init__(self, browser):
         self.browser = browser
@@ -45,3 +48,24 @@ class TextBox:
     def return_current_address(self):
         current_address_return = self.browser.find_element(*self.CURRENT_ADDRESS_RETURN)
         return current_address_return.text
+
+    def return_current_address_placeholder(self):
+        current_address_input = self.browser.find_element(*self.CURRENT_ADDRESS_FIELD)
+        return current_address_input.get_attribute('placeholder')
+
+    def return_perm_address_placeholder(self):
+        perm_address_field = self.browser.find_element(*self.PERMANENT_ADDRESS_FIELD)
+        text = perm_address_field.get_attribute('placeholder')
+        if not text:
+            return False
+        else:
+            return True
+
+    def enter_perm_address(self, address):
+        perm_address_input = self.browser.find_element(*self.PERMANENT_ADDRESS_FIELD)
+        perm_address_input.send_keys(address)
+
+    def return_perm_address(self):
+        perm_address_return = self.browser.find_element(*self.PERMANENT_ADDRESS_RETURN)
+        return perm_address_return.text
+
